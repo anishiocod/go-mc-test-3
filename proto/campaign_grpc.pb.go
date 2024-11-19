@@ -19,12 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CampaignService_ProcessCampaign_FullMethodName = "/proto.CampaignService/ProcessCampaign"
+	CampaignService_ProcessCampaign_FullMethodName = "/campaign.CampaignService/ProcessCampaign"
 )
 
 // CampaignServiceClient is the client API for CampaignService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// Service definition
 type CampaignServiceClient interface {
 	ProcessCampaign(ctx context.Context, in *CampaignRequest, opts ...grpc.CallOption) (*CampaignResponse, error)
 }
@@ -50,6 +52,8 @@ func (c *campaignServiceClient) ProcessCampaign(ctx context.Context, in *Campaig
 // CampaignServiceServer is the server API for CampaignService service.
 // All implementations must embed UnimplementedCampaignServiceServer
 // for forward compatibility.
+//
+// Service definition
 type CampaignServiceServer interface {
 	ProcessCampaign(context.Context, *CampaignRequest) (*CampaignResponse, error)
 	mustEmbedUnimplementedCampaignServiceServer()
@@ -108,7 +112,7 @@ func _CampaignService_ProcessCampaign_Handler(srv interface{}, ctx context.Conte
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var CampaignService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.CampaignService",
+	ServiceName: "campaign.CampaignService",
 	HandlerType: (*CampaignServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

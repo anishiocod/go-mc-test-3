@@ -1,14 +1,29 @@
 syntax = "proto3";
 option go_package = "go-mc-test-3/protogen/basic";
+package campaign;
 
-package proto;
-
+// Service definition
 service CampaignService {
     rpc ProcessCampaign (CampaignRequest) returns (CampaignResponse) {}
 }
 
+// Message definitions
 message CampaignRequest {
-    string campaignData = 1;
+    User user = 1;
+    CampaignDetails campaign = 2;
+    repeated string contactNumbers = 3;
+}
+
+message User {
+    string userId = 1;
+    string userName = 2;
+    string userEmail = 3;
+}
+
+message CampaignDetails {
+    string campaignId = 1;
+    string title = 2;
+    string description = 3;
 }
 
 message CampaignResponse {

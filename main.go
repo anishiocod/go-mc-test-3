@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 
-	pb "github.com/anishmohan/gin-grpc-service/proto" // Update the import path
+	pb "github.com/anishmohan/gin-grpc-service/proto" // ensure this is the correct import path
 	"google.golang.org/grpc"
 )
 
@@ -13,10 +13,18 @@ type server struct {
 	pb.UnimplementedCampaignServiceServer
 }
 
-func (s *server) ProcessCampaign(ctx context.Context, in *pb.CampaignRequest) (*pb.CampaignResponse, error) {
-	log.Printf("Received: %v", in.GetCampaignData())
-	// time.Sleep(20 * time.Second) // Simulate some processing time
-	return &pb.CampaignResponse{ResponseMessage: "Processed campaign: " + in.GetCampaignData()}, nil
+func (s *server) ProcessCampaign(ctx context.Context, req *pb.CampaignRequest) (*pb.CampaignResponse, error) {
+	// Log the received data to verify the structure
+	log.Printf("Received campaign from user: %s, Campaign Title: %s, Contacts Count: %d",
+		req.User.UserName, req.Campaign.Title, len(req.ContactNumbers))
+
+	// Simulate processing time
+	// time.Sleep(20 * time.Second)
+
+	response := &pb.CampaignResponse{
+		ResponseMessage: "Processed campaign: " + req.Campaign.Title,
+	}
+	return response, nil
 }
 
 func main() {
@@ -26,7 +34,7 @@ func main() {
 	}
 	s := grpc.NewServer()
 	pb.RegisterCampaignServiceServer(s, &server{})
-	log.Println("server listening at", lis.Addr())
+	log.Println("Server listening at", lis.Addr())
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
