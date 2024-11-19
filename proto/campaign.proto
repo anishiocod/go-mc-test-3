@@ -1,0 +1,16 @@
+syntax = "proto3";
+option go_package = "go-mc-test-3/protogen/basic";
+
+package proto;
+
+service CampaignService {
+    rpc ProcessCampaign (CampaignRequest) returns (CampaignResponse) {}
+}
+
+message CampaignRequest {
+    string campaignData = 1;
+}
+
+message CampaignResponse {
+    string responseMessage = 1;
+}
