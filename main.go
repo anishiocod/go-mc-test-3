@@ -4,7 +4,6 @@ import (
 	"context"
 	"log"
 	"net"
-	"time"
 
 	pb "github.com/anishmohan/gin-grpc-service/proto" // Ensure this is the correct import path
 	"github.com/gocql/gocql"
@@ -29,7 +28,7 @@ func (s *server) ProcessCampaign(ctx context.Context, req *pb.CampaignRequest) (
 	}
 
 	// Simulate processing time of calling external API to send message Twillio or Whatsapp
-	time.Sleep(time.Second * 5)
+	// time.Sleep(time.Second * 5)
 
 	response := &pb.CampaignResponse{
 		ResponseMessage: "Processed campaign: " + req.Campaign.Title,
